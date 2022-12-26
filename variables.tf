@@ -5,7 +5,6 @@ variable "lambda" {
     description = string
     policies    = list(string)
     env_vars    = map(any)
-    verbose     = bool
   })
 }
 
