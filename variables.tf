@@ -11,10 +11,19 @@ variable "lambda" {
 variable "apigateway" {
   type = object({
     id  = string
-    arn = string
     routes = list(object({
-      method = string
-      path   = string
+      method        = string
+      path          = string
     }))
   })
+}
+
+variable "authorizer_id" {
+    type = string
+    default = null
+}
+
+variable "authorizer_type" {
+    type = string
+    default = null
 }

@@ -1,3 +1,11 @@
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+
+locals {
+  account_id = data.aws_caller_identity.current.account_id
+  region     = data.aws_region.current.id
+}
+
 ####################### APIGateway stuff  ###############################
 resource "aws_apigatewayv2_integration" "lambda" {
   count                  = length(var.apigateway.routes)
@@ -8,21 +16,25 @@ resource "aws_apigatewayv2_integration" "lambda" {
   integration_method     = var.apigateway.routes[count.index].method
 }
 
+
 //// apigateway routes
 resource "aws_apigatewayv2_route" "launch_path" {
-  count     = length(var.apigateway.routes)
-  api_id    = var.apigateway.id
-  route_key = "${var.apigateway.routes[count.index].method} ${var.apigateway.routes[count.index].path}"
-  target    = "integrations/${aws_apigatewayv2_integration.lambda[count.index].id}"
+  count              = length(var.apigateway.routes)
+  api_id             = var.apigateway.id
+  route_key          = "${var.apigateway.routes[count.index].method} ${var.apigateway.routes[count.index].path}"
+  target             = "integrations/${aws_apigatewayv2_integration.lambda[count.index].id}"
+  authorization_type = var.authorizer_type == null ? null : var.authorizer_type
+  authorizer_id      = var.authorizer_id == null ? null : var.authorizer_id
 }
 
 // Permissions for apigateway to invoke the lambda functions
 resource "aws_lambda_permission" "lambda" {
-  statement_id  = "AllowExecutionFromAPIGateway"
+  count         = length(var.apigateway.routes)
+  statement_id  = "AllowExecutionFromAPIGateway-${var.apigateway.routes[count.index].method}"
   action        = "lambda:InvokeFunction"
   principal     = "apigateway.amazonaws.com"
   function_name = var.lambda.name
-  source_arn    = "${var.apigateway.arn}/*/*"
+  source_arn    = "arn:aws:execute-api:${local.region}:${local.account_id}:${var.apigateway.id}/*/${var.apigateway.routes[count.index].method}${var.apigateway.routes[count.index].path}"
 }
 
 ####################### Lambda stuff  ###############################
@@ -69,7 +81,7 @@ resource "aws_lambda_function" "this" {
   description   = var.lambda.description
   filename      = "${var.lambda.path}/archive/${var.lambda.name}.zip"
   function_name = var.lambda.name
-  role          = aws_iam_role.iam_for_lambda.arn
+  role          = aws_iam_role.iam_lambda_role.arn
   handler       = var.lambda.name
 
   // https://devcoops.com/terraform-aws-lambda-data-archive-file/
@@ -85,7 +97,7 @@ resource "aws_lambda_function" "this" {
   }
 }
 
-resource "aws_iam_role" "iam_for_lambda" {
+resource "aws_iam_role" "iam_lambda_role" {
   name = "_clearbyte_${var.lambda.name}"
 
   assume_role_policy = jsonencode({
@@ -106,7 +118,7 @@ resource "aws_iam_role" "iam_for_lambda" {
 resource "aws_iam_role_policy_attachment" "lambda_policy" {
   for_each = toset(concat(["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"], var.lambda.policies))
 
-  role       = aws_iam_role.iam_for_lambda.name
+  role       = aws_iam_role.iam_lambda_role.name
   policy_arn = each.value
 }
 
