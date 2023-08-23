@@ -30,7 +30,7 @@ resource "aws_apigatewayv2_route" "launch_path" {
 // Permissions for apigateway to invoke the lambda functions
 resource "aws_lambda_permission" "lambda" {
   count         = length(var.apigateway.routes)
-  statement_id  = "AllowExecutionFromAPIGateway-${var.apigateway.routes[count.index].method}"
+  statement_id  = "AllowExecutionFromAPIGateway-${var.apigateway.routes[count.index].method}-${count.index}"
   action        = "lambda:InvokeFunction"
   principal     = "apigateway.amazonaws.com"
   function_name = var.lambda.name
