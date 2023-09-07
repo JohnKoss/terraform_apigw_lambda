@@ -48,7 +48,7 @@ resource "null_resource" "lambda_build" {
     archive_exists = fileexists("${var.lambda.path}/archive/${var.lambda.name}")
 
     // Check the hash of all file to see if there are any changes, which will cause an upload.
-    dir_sha1 = sha1(join("", [for f in fileset("${var.lambda.path}", "*.go") : filesha1("${var.lambda.path}/${f}")]))
+    dir_sha1 = sha1(join("", [for f in fileset("${var.lambda.path}", "*.*") : filesha1("${var.lambda.path}/${f}")]))
   }
 
   provisioner "local-exec" {
