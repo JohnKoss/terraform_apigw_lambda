@@ -2,10 +2,10 @@ variable "lambda" {
   type = object({
     name        = string
     path        = string
-    description = string
-    other_args  = string
-    policies    = list(string)
-    env_vars    = map(any)
+    description = optional(string)
+    other_args  = optional(string)
+    policies    = optional(list(string))
+    env_vars    = optional(map(any))
   })
 }
 
