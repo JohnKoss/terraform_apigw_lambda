@@ -3,6 +3,7 @@ variable "lambda" {
     name        = string
     path        = string
     description = string
+    other_args  = string
     policies    = list(string)
     env_vars    = map(any)
   })
@@ -10,20 +11,20 @@ variable "lambda" {
 
 variable "apigateway" {
   type = object({
-    id  = string
+    id = string
     routes = list(object({
-      method        = string
-      path          = string
+      method = string
+      path   = string
     }))
   })
 }
 
 variable "authorizer_id" {
-    type = string
-    default = null
+  type    = string
+  default = null
 }
 
 variable "authorizer_type" {
-    type = string
-    default = null
+  type    = string
+  default = null
 }
