@@ -12,5 +12,5 @@ output "invoke_arn" {
 }
 output "lanbda_role_id" {
   description = "The role of the lambda function."
-  value = module.ws_labs.role.id
+  value = module.ws_labs.lanbda_role_id
 }
