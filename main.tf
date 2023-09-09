@@ -66,8 +66,6 @@ module "ws_labs" {
 
 
 
-
-
 # # Equivalent of aws ecr get-login
 # data "aws_ecr_authorization_token" "container_registry_token" {}
 
