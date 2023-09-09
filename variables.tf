@@ -3,7 +3,7 @@ variable "lambda" {
     name        = string
     path        = string
     description = optional(string)
-    other_args  = optional(string)
+    other_args  = optional(string,"")
     policies    = optional(list(string))
     env_vars    = optional(map(any))
   })
