@@ -22,19 +22,22 @@ resource "aws_apigatewayv2_integration" "lambda" {
   api_id                 = var.apigateway.id
   payload_format_version = "2.0"
   //integration_uri        = aws_lambda_function.image.arn
-  integration_uri = module.ws_labs.arn
-  integration_type       = "AWS_PROXY"
-  integration_method     = var.apigateway.routes[count.index].method
+  integration_uri    = module.ws_labs.arn
+  integration_type   = "AWS_PROXY"
+  integration_method = var.apigateway.routes[count.index].method
 }
 
 //// apigateway routes
 resource "aws_apigatewayv2_route" "launch_path" {
-  count              = length(var.apigateway.routes)
-  api_id             = var.apigateway.id
-  route_key          = "${var.apigateway.routes[count.index].method} ${var.apigateway.routes[count.index].path}"
-  target             = "integrations/${aws_apigatewayv2_integration.lambda[count.index].id}"
-  authorization_type = var.authorizer_type == null ? null : var.authorizer_type
-  authorizer_id      = var.authorizer_id == null ? null : var.authorizer_id
+  count     = length(var.apigateway.routes)
+  api_id    = var.apigateway.id
+  route_key = "${var.apigateway.routes[count.index].method} ${var.apigateway.routes[count.index].path}"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda[count.index].id}"
+  //authorization_type = var.authorizer_type == null ? null : var.authorizer_type
+  //authorizer_id      = var.authorizer_id == null ? null : var.authorizer_id
+  authorization_type = var.authorizer_type
+  authorizer_id      = var.authorizer_id
+
 }
 
 // Permissions for apigateway to invoke the lambda functions
