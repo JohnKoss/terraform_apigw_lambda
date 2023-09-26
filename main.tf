@@ -58,7 +58,7 @@ module "ws_labs" {
   path       = var.lambda.path
   name       = var.lambda.name
   desc       = var.lambda.description
-  timeout    = var.timeout
+  timeout    = var.lambda.timeout
   other_args = var.lambda.other_args
 
   env_vars = var.lambda.env_vars
