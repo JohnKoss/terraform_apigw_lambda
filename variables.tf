@@ -6,7 +6,7 @@ variable "lambda" {
     timeout          = optional(number)
     other_args       = optional(string, "")
     managed_policies = optional(list(string))
-    inline_policies  = optional(map(string))
+    inline_policies  = optional(list(string))
     env_vars         = optional(map(any))
   })
 }
