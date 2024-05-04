@@ -1,12 +1,13 @@
 variable "lambda" {
   type = object({
-    name        = string
-    path        = string
-    description = optional(string)
-    timeout     = optional(number)
-    other_args  = optional(string, "")
-    policies    = optional(list(string))
-    env_vars    = optional(map(any))
+    name             = string
+    path             = string
+    description      = optional(string)
+    timeout          = optional(number)
+    other_args       = optional(string, "")
+    managed_policies = optional(list(string))
+    inline_policies  = optional(map(string))
+    env_vars         = optional(map(any))
   })
 }
 

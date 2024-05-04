@@ -63,7 +63,8 @@ module "ws_labs" {
 
   env_vars = var.lambda.env_vars
 
-  managed_policies = var.lambda.policies
+  managed_policies = var.lambda.managed_policies
+  inline_policies  = var.lambda.inline_policies
 }
 #################################################
 
