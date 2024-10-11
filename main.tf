@@ -60,7 +60,7 @@ module "ws_labs" {
   desc       = var.lambda.description
   timeout    = var.lambda.timeout
   other_args = var.lambda.other_args
-  arch       = var.arch
+  arch       = var.lambda.arch
 
   env_vars = var.lambda.env_vars
 
