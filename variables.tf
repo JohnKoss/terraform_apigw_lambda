@@ -13,7 +13,6 @@ variable "lambda" {
     })))
     env_vars = optional(map(any))
   })
-  
   default = {
     name             = ""
     path             = ""
