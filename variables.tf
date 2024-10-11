@@ -27,7 +27,7 @@ variable "lambda" {
 
   validation {
     condition     = contains(["arm64", "x86_64"], var.lambda.arch)
-    error_message = "The architecture must be either 'x86' or 'arm'."
+    error_message = "The architecture must be either 'arm64' or 'x86_64'."
   }
 }
 
