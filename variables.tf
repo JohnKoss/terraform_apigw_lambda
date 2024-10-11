@@ -31,6 +31,7 @@ variable "arch" {
     error_message = "The value for 'arch' must be either 'x86_64' or 'arm64'."
   }
 }
+
 variable "authorizer_id" {
   type    = string
   default = null
