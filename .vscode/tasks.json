@@ -1,0 +1,126 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "gitAdd",
+            "type": "shell",
+            "command": "git",
+            "args": [
+                "add",
+                "."
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "gitCommit",
+            "type": "shell",
+            "command": "git",
+            "args": [
+                "commit",
+                "-m",
+                "${input:commitMessage}"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "gitTag",
+            "type": "shell",
+            "command": "git",
+            "args": [
+                "tag",
+                "${input:tagVersion}"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "gitPushTag",
+            "type": "shell",
+            "command": "git",
+            "args": [
+                "push",
+                "origin",
+                "${input:tagVersion}"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "gitPush",
+            "type": "shell",
+            "command": "git",
+            "args": [
+                "push"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Git It",
+            "dependsOrder": "sequence",
+            "dependsOn": ["gitAdd", "gitCommit", "gitTag", "gitPushTag" ,"gitPush"],
+            "problemMatcher": []
+          }
+    ],
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "commitMessage",
+            "description": "Enter your commit message",
+            "default": "Saving"
+        },
+        {
+            "type": "promptString",
+            "id": "tagVersion",
+            "description": "Enter your tag version",
+            "default": "v0.0."
+        }
+    ]
+}

@@ -23,7 +23,14 @@ variable "apigateway" {
     }))
   })
 }
-
+variable "arch" {
+  type    = string
+  default = "arm64"
+  validation {
+    condition     = contains(["x86_64", "arm64"], var.arch)
+    error_message = "The value for 'arch' must be either 'x86_64' or 'arm64'."
+  }
+}
 variable "authorizer_id" {
   type    = string
   default = null
