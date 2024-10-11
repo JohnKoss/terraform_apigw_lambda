@@ -24,7 +24,6 @@ variable "lambda" {
     inline_policies  = []
     env_vars         = {}
   }
-
   validation {
     condition     = contains(["arm64", "x86_64"], var.lambda.arch)
     error_message = "The architecture must be either 'arm64' or 'x86_64'."
