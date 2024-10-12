@@ -50,6 +50,7 @@ module "terraform_lambda" {
   name       = var.lambda.name
   desc       = var.lambda.description
   timeout    = var.lambda.timeout
+  memory_size = var.lambda.memory_size
   other_args = var.lambda.other_args
   arch       = var.lambda.arch
 
