@@ -8,7 +8,7 @@ variable "lambda" {
     memory_size      = optional(number,128)
     other_args       = optional(string, "")
     managed_policies = optional(list(string))
-    inline_policies = optional(map(object({
+    inline_policies = optional(list(object({
       name   = string
       policy = string
     })))
