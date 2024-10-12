@@ -2,7 +2,7 @@ variable "lambda" {
   type = object({
     name             = string
     path             = string
-    arch             = string
+    arch             = optional(string)
     description      = optional(string)
     timeout          = optional(number)
     other_args       = optional(string, "")
