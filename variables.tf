@@ -6,7 +6,7 @@ variable "lambda" {
     description      = optional(string)
     timeout          = optional(number,5)
     memory_size      = optional(number,128)
-    other_args       = optional(string, "")
+    other_args       = optional(string, "--platform=linux/arm64")
     managed_policies = optional(list(string))
     inline_policies = optional(list(object({
       name   = string
