@@ -7,6 +7,7 @@ variable "lambda" {
     timeout          = optional(number,5)
     memory_size      = optional(number,128)
     other_args       = optional(string, "")
+    docker_host      = optional(string, "tcp://127.0.0.1:2375")
     managed_policies = optional(list(string))
     inline_policies = optional(list(object({
       name   = string
