@@ -53,6 +53,7 @@ module "terraform_lambda" {
   memory_size = var.lambda.memory_size
   other_args = var.lambda.other_args
   arch       = var.lambda.arch
+  docker_host = var.lambda.docker_host
 
   env_vars = var.lambda.env_vars
 
