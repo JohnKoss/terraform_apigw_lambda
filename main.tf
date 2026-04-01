@@ -25,6 +25,8 @@ resource "aws_apigatewayv2_route" "launch_path" {
   target             = "integrations/${aws_apigatewayv2_integration.lambda[count.index].id}"
   authorization_type = var.authorizer_type
   authorizer_id      = var.authorizer_id
+
+  depends_on = [aws_apigatewayv2_integration.lambda]
 }
 
 // Permissions for apigateway to invoke the lambda functions
