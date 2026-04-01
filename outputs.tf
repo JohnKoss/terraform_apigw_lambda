@@ -10,7 +10,7 @@ output "invoke_arn" {
   description = "Invoke ARN of the lambda function"
   value = module.terraform_lambda.invoke_arn
 }
-output "lanbda_role_id" {
+output "lambda_role_id" {
   description = "The role of the lambda function."
-  value = module.terraform_lambda.lanbda_role_id
+  value = module.terraform_lambda.lambda_role_id
 }
