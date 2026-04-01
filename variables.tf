@@ -2,7 +2,6 @@ variable "lambda" {
   type = object({
     name             = string
     path             = string
-    service_path     = string
     arch             = optional(string, "arm64")
     description      = optional(string)
     timeout          = optional(number, 5)
