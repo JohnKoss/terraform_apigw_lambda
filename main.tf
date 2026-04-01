@@ -12,7 +12,7 @@ resource "aws_apigatewayv2_integration" "lambda" {
   count                  = length(var.apigateway.routes)
   api_id                 = var.apigateway.id
   payload_format_version = "2.0"
-  integration_uri        = module.terraform_lambda.arn
+  integration_uri        = module.terraform_lambda.invoke_arn
   integration_type       = "AWS_PROXY"
   integration_method     = var.apigateway.routes[count.index].method
 }
