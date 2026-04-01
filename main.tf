@@ -14,7 +14,8 @@ resource "aws_apigatewayv2_integration" "lambda" {
   payload_format_version = "2.0"
   integration_uri        = module.terraform_lambda.invoke_arn
   integration_type       = "AWS_PROXY"
-  integration_method     = var.apigateway.routes[count.index].method
+  #integration_method     = var.apigateway.routes[count.index].method
+  integration_method     = "POST"  # always POST for Lambda proxy
 }
 
 //// apigateway routes
