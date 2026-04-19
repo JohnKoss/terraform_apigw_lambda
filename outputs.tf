@@ -14,3 +14,7 @@ output "lambda_role_id" {
   description = "The role of the lambda function."
   value = module.terraform_lambda.lambda_role_id
 }
+output "api_gateway_integration_id" {
+  description = "The ID of the API Gateway integration."
+  value = aws_apigatewayv2_integration.lambda.id
+}
