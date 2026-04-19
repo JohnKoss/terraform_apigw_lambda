@@ -16,5 +16,5 @@ output "lambda_role_id" {
 }
 output "api_gateway_integration_id" {
   description = "The ID of the API Gateway integration."
-  value = aws_apigatewayv2_integration.lambda.id
+  value = aws_apigatewayv2_integration.lambda[0].id
 }
